@@ -1,6 +1,7 @@
+import { ErrorDescription } from '@ethersproject/abi/lib/interface'
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/dist/src/signer-with-address'
-import { Contract, ContractFactory } from 'ethers'
-import { getContractAddress } from 'ethers/lib/utils'
+import { Contract, ContractFactory, utils } from 'ethers'
+import { getContractAddress, LogDescription } from 'ethers/lib/utils'
 import { Artifacts } from 'hardhat/internal/artifacts'
 import { Artifact, LinkReferences } from 'hardhat/types'
 import path from 'path'
@@ -91,6 +92,11 @@ export async function getArtifact(contractName: string): Promise<Artifact> {
   return artifacts.readArtifact(contractName.split('/').slice(-1)[0])
 }
 
+export function getInterface(abiOrArtifact: any): utils.Interface {
+  const abi = Array.isArray(abiOrArtifact) ? abiOrArtifact : abiOrArtifact.abi
+  return new utils.Interface(abi)
+}
+
 export function linkBytecode(artifact: ArtifactLike, libraries: Libraries): string {
   let bytecode = artifact.bytecode.replace('0x', '')
   for (const [, fileReferences] of Object.entries(artifact.linkReferences || {})) {
@@ -105,4 +111,26 @@ export function linkBytecode(artifact: ArtifactLike, libraries: Libraries): stri
     }
   }
   return `0x${bytecode}`
+}
+
+export function encodeCall(abiOrArtifact: any, method: string, args?: any[]): string {
+  const iface = getInterface(abiOrArtifact)
+  return iface.encodeFunctionData(method, args)
+}
+
+export function decodeCallResult<T>(abiOrArtifact: any, method: string, result: string): T {
+  const iface = getInterface(abiOrArtifact)
+  const decodedResult = iface.decodeFunctionResult(method, result)
+  const keys = Object.keys(decodedResult)
+  return keys.length > 1 ? decodedResult : decodedResult[0]
+}
+
+export function decodeError(abiOrArtifact: any, data: string): ErrorDescription {
+  const iface = getInterface(abiOrArtifact)
+  return iface.parseError(data)
+}
+
+export function decodeLog(abiOrArtifact: any, log: { topics: Array<string>; data: string }): LogDescription {
+  const iface = getInterface(abiOrArtifact)
+  return iface.parseLog(log)
 }
