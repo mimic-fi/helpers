@@ -1,5 +1,5 @@
 {
-  "name": "@mimic-fi/v3-helpers",
+  "name": "@mimic-fi/helpers",
   "version": "0.1.12",
   "license": "GPL-3.0",
   "main": "dist/index.js",
@@ -15,7 +15,7 @@
     "build": "yarn compile && rm -rf dist && tsc",
     "compile": "hardhat compile",
     "lint": "yarn lint:solidity && yarn lint:typescript",
-    "lint:solidity": "solhint 'contracts/**/*.sol' --config ../../node_modules/solhint-config-mimic/index.js",
+    "lint:solidity": "solhint 'contracts/**/*.sol' --config ./node_modules/solhint-config-mimic/index.js",
     "lint:typescript": "eslint . --ext .ts",
     "test": "hardhat test",
     "prepare": "yarn build"
@@ -23,21 +23,21 @@
   "dependencies": {
     "@nomiclabs/hardhat-ethers": "^2.2.3",
     "@nomiclabs/hardhat-waffle": "2.0.3",
-    "@types/chai": "^4.3.5",
-    "@types/mocha": "^10.0.1",
-    "@types/sinon-chai": "^3.2.3",
-    "chai": "^4.3.7",
+    "@openzeppelin/contracts": "5.0.2",
     "decimal.js": "~10.4.3",
     "ethers": "~5.6.0",
-    "hardhat": "^2.14.1",
-    "mocha": "^6.2.3"
+    "hardhat": "^2.14.1"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.5",
+    "@types/mocha": "^10.0.1",
+    "chai": "^4.3.7",
     "eslint-config-mimic": "^0.0.2",
     "ethereum-waffle": "^3.4.4",
     "solhint-config-mimic": "^0.0.3",
+    "mocha": "^6.2.3",
     "ts-node": "^10.9.1",
-    "typescript": "~4.3.4"
+    "typescript": "^5.6.2"
   },
   "eslintConfig": {
     "extends": "eslint-config-mimic",
