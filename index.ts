@@ -1,4 +1,3 @@
-export * from './src/addresses'
 export * from './src/asserts'
 export * from './src/blocks'
 export * from './src/constants'
