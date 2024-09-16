@@ -26,3 +26,7 @@ export const setNextBlockTimestamp = async (timestamp: BigNumberish): Promise<vo
   const { ethers } = await import('hardhat')
   await ethers.provider.send('evm_setNextBlockTimestamp', [parseInt(timestamp.toString())])
 }
+
+export const sleep = (seconds: number): Promise<void> => {
+  return new Promise((resolve) => setTimeout(resolve, seconds * 1000))
+}
