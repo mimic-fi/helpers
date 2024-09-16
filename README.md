@@ -5,11 +5,11 @@
 <h4 align="center">DeFi automation platform</h4>
 
 <p align="center">
-  <a href="https://badge.fury.io/js/@mimic-fi%2Fv3-helpers">
-    <img src="https://badge.fury.io/js/@mimic-fi%2Fv3-helpers.svg" alt="NPM">
+  <a href="https://badge.fury.io/js/@mimic-fi%2Fhelpers">
+    <img src="https://badge.fury.io/js/@mimic-fi%2Fhelpers.svg" alt="NPM">
   </a>
-  <a href="https://github.com/mimic-fi/v3-core/actions/workflows/ci-helpers.yml">
-    <img src="https://github.com/mimic-fi/v3-core/actions/workflows/ci-helpers.yml/badge.svg" alt="CI Helpers">
+  <a href="https://github.com/mimic-fi/helpers/actions/workflows/ci-helpers.yml">
+    <img src="https://github.com/mimic-fi/helpers/actions/workflows/ci-helpers.yml/badge.svg" alt="CI">
   </a>
   <a href="https://discord.mimic.fi">
     <img alt="Discord" src="https://img.shields.io/discord/989984112397922325">
@@ -30,7 +30,7 @@
 
 ## Content 
 
-This package contains a bunch of Solidity and TypeScript helpers used among all Mimic v3 repositories.
+This package contains a bunch of Solidity and TypeScript helpers used among all Mimic repositories.
 
 ## Setup
 
@@ -39,10 +39,10 @@ From your command line:
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/mimic-fi/v3-core
+$ git clone https://github.com/mimic-fi/helpers
 
 # Go into the repository's package
-$ cd v3-core/packages/helpers
+$ cd helpers
 
 # Install dependencies
 $ yarn
