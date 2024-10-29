@@ -1,23 +1,23 @@
 import { Decimal } from 'decimal.js'
 import { BigNumber } from 'ethers'
 
-const SCALING_FACTOR = 1e18
+export type BigNumberish = string | number | BigNumber | Decimal
 
-export type BigNumberish = string | number | BigNumber
+export const decimal = (x: BigNumberish): Decimal => new Decimal(x.toString())
 
-export const decimal = (x: BigNumberish | Decimal): Decimal => new Decimal(x.toString())
+export const toFP = (x: BigNumberish, decimals: number): BigNumber => bn(decimal(x).mul(decimal(10).pow(decimals)))
 
-export const fp = (x: number | string | Decimal): BigNumber => bn(decimal(x).mul(SCALING_FACTOR))
+export const fp = (x: BigNumberish): BigNumber => toFP(x, 18)
 
-export const toWBTC = (x: number | string | Decimal): BigNumber => fp(x).div(1e10)
+export const toWBTC = (x: BigNumberish): BigNumber => toFP(x, 8)
 
-export const toUSDC = (x: number | string | Decimal): BigNumber => fp(x).div(1e12)
+export const toUSDC = (x: BigNumberish): BigNumber => toFP(x, 6)
 
 export const toUSDT = toUSDC
 
-export const pct = (x: BigNumber, p: number): BigNumber => x.mul(fp(p)).div(fp(1))
+export const pct = (x: BigNumberish, p: number): BigNumber => bn(x).mul(fp(p)).div(fp(1))
 
-export const bn = (x: BigNumberish | Decimal): BigNumber => {
+export const bn = (x: BigNumberish): BigNumber => {
   if (BigNumber.isBigNumber(x)) return x
   const stringified = parseScientific(x.toString())
   const integer = stringified.split('.')[0]
